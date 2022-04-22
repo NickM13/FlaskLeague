@@ -1,0 +1,41 @@
+{% if pagination.css_framework == "bootstrap5" %}
+  {% extends 'base5.html' %}
+{% else %}
+  {% extends "base.html" %}
+{% endif %}
+
+{% block body %}
+  {% if entries %}
+    <h2 align="center">
+      {{ listname }}
+    </h2>
+    {{ pagination.info }}
+    {{ pagination.links }}
+    <div class="table-responsive">
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          {% for h in headers %}
+          <th>{{ h }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in entries %}
+        <tr>
+          {% for i in entry %}
+          <td>{{ i }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    {{ pagination.links }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  var element = document.getElementById("{{ active_url or 'users-url'}}");
+  element.children[0].classList.add("active");
+{% endblock %}
